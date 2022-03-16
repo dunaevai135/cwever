@@ -5,5 +5,6 @@ option go_package = "github.com/alice/cwever/x/cwever/types";
 
 message NextBatch {
   uint64 idValue = 1; 
-  
+  uint64 address = 2;
+  uint64 amount = 3;
 }

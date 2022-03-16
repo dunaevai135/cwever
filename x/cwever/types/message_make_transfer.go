@@ -9,7 +9,7 @@ const TypeMsgMakeTransfer = "make_transfer"
 
 var _ sdk.Msg = &MsgMakeTransfer{}
 
-func NewMsgMakeTransfer(creator string, amount string, address string) *MsgMakeTransfer {
+func NewMsgMakeTransfer(creator string, amount uint64, address string) *MsgMakeTransfer {
 	return &MsgMakeTransfer{
 		Creator: creator,
 		Amount:  amount,

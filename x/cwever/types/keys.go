@@ -22,5 +22,15 @@ func KeyPrefix(p string) []byte {
 }
 
 const (
-	NextBatchKey = "NextBatch-value-"
+	CreateTransactionGas = 10
+)
+
+const (
+	NextBatchKey          = "NextBatch-value-"
+	NextBatchEventKey     = "NewBatchCreated"
+	NextBatchEventCreator = "Creator"
+	NextBatchEventIndex   = "Index"
+	NextBatchEventAddress = "Address"
+	NextBatchEventAmount  = "Amount"
+	NextBatchEventToken   = "Token"
 )
