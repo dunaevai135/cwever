@@ -1,0 +1,12 @@
+syntax = "proto3";
+package alice.cwever.cwever;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/alice/cwever/x/cwever/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}

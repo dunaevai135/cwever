@@ -1,0 +1,13 @@
+syntax = "proto3";
+package alice.cwever.cwever;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/alice/cwever/x/cwever/types";
+
+// Msg defines the Msg service.
+service Msg {
+    // this line is used by starport scaffolding # proto/tx/rpc
+}
+
+// this line is used by starport scaffolding # proto/tx/message
