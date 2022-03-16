@@ -7,7 +7,18 @@ option go_package = "github.com/alice/cwever/x/cwever/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+      rpc MakeTransfer(MsgMakeTransfer) returns (MsgMakeTransferResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgMakeTransfer {
+  string creator = 1;
+  string amount = 2;
+  string address = 3;
+}
+
+message MsgMakeTransferResponse {
+  string idValue = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

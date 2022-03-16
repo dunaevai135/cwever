@@ -5,6 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cwever/params.proto";
+import "cwever/next_batch.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/alice/cwever/x/cwever/types";
@@ -15,7 +16,11 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/alice/cwever/cwever/params";
   }
-  // this line is used by starport scaffolding # 2
+  // Queries a NextBatch by index.
+	rpc NextBatch(QueryGetNextBatchRequest) returns (QueryGetNextBatchResponse) {
+		option (google.api.http).get = "/alice/cwever/cwever/next_batch";
+	}
+// this line is used by starport scaffolding # 2
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -27,4 +32,9 @@ message QueryParamsResponse {
   Params params = 1 [(gogoproto.nullable) = false];
 }
 
+message QueryGetNextBatchRequest {}
+
+message QueryGetNextBatchResponse {
+	NextBatch NextBatch = 1 [(gogoproto.nullable) = false];
+}
 // this line is used by starport scaffolding # 3
