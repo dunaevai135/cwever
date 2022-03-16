@@ -2,6 +2,8 @@ import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "alice.cwever.cwever";
 export interface NextBatch {
     idValue: number;
+    address: number;
+    amount: number;
 }
 export declare const NextBatch: {
     encode(message: NextBatch, writer?: Writer): Writer;

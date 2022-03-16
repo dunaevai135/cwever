@@ -26,11 +26,12 @@ const (
 )
 
 const (
-	NextBatchKey          = "NextBatch-value-"
-	NextBatchEventKey     = "NewBatchCreated"
-	NextBatchEventCreator = "Creator"
-	NextBatchEventIndex   = "Index"
-	NextBatchEventAddress = "Address"
-	NextBatchEventAmount  = "Amount"
-	NextBatchEventToken   = "Token"
+	NextBatchKey             = "NextBatch-value-"
+	NextBatchEventKey        = "NewBatchCreated"
+	NextBatchEventCreator    = "Creator"
+	NextBatchEventIndex      = "Index"
+	NextBatchEventAddress    = "Address"
+	NextBatchEventAccAddress = "Accaddress"
+	NextBatchEventAmount     = "Amount"
+	NextBatchEventToken      = "Token"
 )

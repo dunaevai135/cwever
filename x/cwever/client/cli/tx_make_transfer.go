@@ -18,7 +18,10 @@ func CmdMakeTransfer() *cobra.Command {
 		Short: "Broadcast message makeTransfer",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argAmount := args[0]
+			argAmount, err := strconv.ParseUint(args[0], 10, 64)
+			if err != nil {
+				return err
+			}
 			argAddress := args[1]
 
 			clientCtx, err := client.GetClientTxContext(cmd)

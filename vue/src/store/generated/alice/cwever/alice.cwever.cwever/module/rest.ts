@@ -10,12 +10,19 @@
  */
 
 export interface CweverMsgMakeTransferResponse {
+  /** @format uint64 */
   idValue?: string;
 }
 
 export interface CweverNextBatch {
   /** @format uint64 */
   idValue?: string;
+
+  /** @format uint64 */
+  address?: string;
+
+  /** @format uint64 */
+  amount?: string;
 }
 
 /**

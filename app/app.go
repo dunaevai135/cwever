@@ -354,6 +354,7 @@ func New(
 	)
 
 	app.CweverKeeper = *cwevermodulekeeper.NewKeeper(
+		app.BankKeeper,
 		appCodec,
 		keys[cwevermoduletypes.StoreKey],
 		keys[cwevermoduletypes.MemStoreKey],

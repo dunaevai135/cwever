@@ -1,30 +1,31 @@
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
+import { Reader, util, configure, Writer } from "protobufjs/minimal";
+import * as Long from "long";
 
 export const protobufPackage = "alice.cwever.cwever";
 
 export interface MsgMakeTransfer {
   creator: string;
-  amount: string;
   address: string;
+  amount: number;
 }
 
 export interface MsgMakeTransferResponse {
-  idValue: string;
+  idValue: number;
 }
 
-const baseMsgMakeTransfer: object = { creator: "", amount: "", address: "" };
+const baseMsgMakeTransfer: object = { creator: "", address: "", amount: 0 };
 
 export const MsgMakeTransfer = {
   encode(message: MsgMakeTransfer, writer: Writer = Writer.create()): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
-    if (message.amount !== "") {
-      writer.uint32(18).string(message.amount);
-    }
     if (message.address !== "") {
-      writer.uint32(26).string(message.address);
+      writer.uint32(18).string(message.address);
+    }
+    if (message.amount !== 0) {
+      writer.uint32(24).uint64(message.amount);
     }
     return writer;
   },
@@ -40,10 +41,10 @@ export const MsgMakeTransfer = {
           message.creator = reader.string();
           break;
         case 2:
-          message.amount = reader.string();
+          message.address = reader.string();
           break;
         case 3:
-          message.address = reader.string();
+          message.amount = longToNumber(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -60,15 +61,15 @@ export const MsgMakeTransfer = {
     } else {
       message.creator = "";
     }
-    if (object.amount !== undefined && object.amount !== null) {
-      message.amount = String(object.amount);
-    } else {
-      message.amount = "";
-    }
     if (object.address !== undefined && object.address !== null) {
       message.address = String(object.address);
     } else {
       message.address = "";
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Number(object.amount);
+    } else {
+      message.amount = 0;
     }
     return message;
   },
@@ -76,8 +77,8 @@ export const MsgMakeTransfer = {
   toJSON(message: MsgMakeTransfer): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
-    message.amount !== undefined && (obj.amount = message.amount);
     message.address !== undefined && (obj.address = message.address);
+    message.amount !== undefined && (obj.amount = message.amount);
     return obj;
   },
 
@@ -88,29 +89,29 @@ export const MsgMakeTransfer = {
     } else {
       message.creator = "";
     }
-    if (object.amount !== undefined && object.amount !== null) {
-      message.amount = object.amount;
-    } else {
-      message.amount = "";
-    }
     if (object.address !== undefined && object.address !== null) {
       message.address = object.address;
     } else {
       message.address = "";
     }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    } else {
+      message.amount = 0;
+    }
     return message;
   },
 };
 
-const baseMsgMakeTransferResponse: object = { idValue: "" };
+const baseMsgMakeTransferResponse: object = { idValue: 0 };
 
 export const MsgMakeTransferResponse = {
   encode(
     message: MsgMakeTransferResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.idValue !== "") {
-      writer.uint32(10).string(message.idValue);
+    if (message.idValue !== 0) {
+      writer.uint32(8).uint64(message.idValue);
     }
     return writer;
   },
@@ -125,7 +126,7 @@ export const MsgMakeTransferResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.idValue = reader.string();
+          message.idValue = longToNumber(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -140,9 +141,9 @@ export const MsgMakeTransferResponse = {
       ...baseMsgMakeTransferResponse,
     } as MsgMakeTransferResponse;
     if (object.idValue !== undefined && object.idValue !== null) {
-      message.idValue = String(object.idValue);
+      message.idValue = Number(object.idValue);
     } else {
-      message.idValue = "";
+      message.idValue = 0;
     }
     return message;
   },
@@ -162,7 +163,7 @@ export const MsgMakeTransferResponse = {
     if (object.idValue !== undefined && object.idValue !== null) {
       message.idValue = object.idValue;
     } else {
-      message.idValue = "";
+      message.idValue = 0;
     }
     return message;
   },
@@ -200,6 +201,16 @@ interface Rpc {
   ): Promise<Uint8Array>;
 }
 
+declare var self: any | undefined;
+declare var window: any | undefined;
+var globalThis: any = (() => {
+  if (typeof globalThis !== "undefined") return globalThis;
+  if (typeof self !== "undefined") return self;
+  if (typeof window !== "undefined") return window;
+  if (typeof global !== "undefined") return global;
+  throw "Unable to locate global object";
+})();
+
 type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -210,3 +221,15 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  return long.toNumber();
+}
+
+if (util.Long !== Long) {
+  util.Long = Long as any;
+  configure();
+}

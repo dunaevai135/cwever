@@ -1,6 +1,8 @@
 # cwever
 **cwever** is a blockchain built using Cosmos SDK and Tendermint and created with [Starport](https://starport.com).
 
+![](https://i.imgur.com/hfKWnD0.png)
+
 ## Get started
 
 ```

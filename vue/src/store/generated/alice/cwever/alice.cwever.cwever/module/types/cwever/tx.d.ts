@@ -2,11 +2,11 @@ import { Reader, Writer } from "protobufjs/minimal";
 export declare const protobufPackage = "alice.cwever.cwever";
 export interface MsgMakeTransfer {
     creator: string;
-    amount: string;
     address: string;
+    amount: number;
 }
 export interface MsgMakeTransferResponse {
-    idValue: string;
+    idValue: number;
 }
 export declare const MsgMakeTransfer: {
     encode(message: MsgMakeTransfer, writer?: Writer): Writer;

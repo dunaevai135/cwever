@@ -20,6 +20,12 @@ paths:
                   idValue:
                     type: string
                     format: uint64
+                  address:
+                    type: string
+                    format: uint64
+                  amount:
+                    type: string
+                    format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -12652,10 +12658,17 @@ definitions:
     properties:
       idValue:
         type: string
+        format: uint64
   alice.cwever.cwever.NextBatch:
     type: object
     properties:
       idValue:
+        type: string
+        format: uint64
+      address:
+        type: string
+        format: uint64
+      amount:
         type: string
         format: uint64
   alice.cwever.cwever.Params:
@@ -12668,6 +12681,12 @@ definitions:
         type: object
         properties:
           idValue:
+            type: string
+            format: uint64
+          address:
+            type: string
+            format: uint64
+          amount:
             type: string
             format: uint64
   alice.cwever.cwever.QueryParamsResponse:

@@ -6,14 +6,22 @@ export const protobufPackage = "alice.cwever.cwever";
 
 export interface NextBatch {
   idValue: number;
+  address: number;
+  amount: number;
 }
 
-const baseNextBatch: object = { idValue: 0 };
+const baseNextBatch: object = { idValue: 0, address: 0, amount: 0 };
 
 export const NextBatch = {
   encode(message: NextBatch, writer: Writer = Writer.create()): Writer {
     if (message.idValue !== 0) {
       writer.uint32(8).uint64(message.idValue);
+    }
+    if (message.address !== 0) {
+      writer.uint32(16).uint64(message.address);
+    }
+    if (message.amount !== 0) {
+      writer.uint32(24).uint64(message.amount);
     }
     return writer;
   },
@@ -27,6 +35,12 @@ export const NextBatch = {
       switch (tag >>> 3) {
         case 1:
           message.idValue = longToNumber(reader.uint64() as Long);
+          break;
+        case 2:
+          message.address = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.amount = longToNumber(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -43,12 +57,24 @@ export const NextBatch = {
     } else {
       message.idValue = 0;
     }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = Number(object.address);
+    } else {
+      message.address = 0;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Number(object.amount);
+    } else {
+      message.amount = 0;
+    }
     return message;
   },
 
   toJSON(message: NextBatch): unknown {
     const obj: any = {};
     message.idValue !== undefined && (obj.idValue = message.idValue);
+    message.address !== undefined && (obj.address = message.address);
+    message.amount !== undefined && (obj.amount = message.amount);
     return obj;
   },
 
@@ -58,6 +84,16 @@ export const NextBatch = {
       message.idValue = object.idValue;
     } else {
       message.idValue = 0;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    } else {
+      message.address = 0;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    } else {
+      message.amount = 0;
     }
     return message;
   },

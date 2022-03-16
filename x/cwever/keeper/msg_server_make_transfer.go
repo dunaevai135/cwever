@@ -16,14 +16,23 @@ func (k msgServer) MakeTransfer(goCtx context.Context, msg *types.MsgMakeTransfe
 
 	// TODO upgarede newIndex
 	var newIndex uint64 = 1
+
+	// AccAddress, err := sdk.AccAddressFromBech32(msg.Creator)
+
+	// if err != nil {
+	// 	panic(err.Error())
+	// }
+
 	msgMakeTransfer := types.MsgMakeTransfer{
 		Creator: msg.Creator,
 		Amount:  msg.Amount,
 		Address: msg.Address,
 	}
 
-	// TODO store tramsfer msg or delete
-	_ = msgMakeTransfer
+	// TODO store transfer msg or delete
+	// _ = msgMakeTransfer
+
+	k.Keeper.CollectWager(ctx, &msgMakeTransfer)
 
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(sdk.EventTypeMessage,

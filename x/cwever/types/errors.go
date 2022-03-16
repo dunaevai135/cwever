@@ -8,5 +8,7 @@ import (
 
 // x/cwever module sentinel errors
 var (
-	ErrSample = sdkerrors.Register(ModuleName, 1100, "sample error")
+	ErrSample           = sdkerrors.Register(ModuleName, 1100, "sample error")
+	ErrCreatorCannotPay = sdkerrors.Register(ModuleName, 1200, "Creator cannot pay the bills")
+	// TODO add more errors
 )
