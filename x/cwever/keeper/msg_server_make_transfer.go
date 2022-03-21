@@ -30,9 +30,14 @@ func (k msgServer) MakeTransfer(goCtx context.Context, msg *types.MsgMakeTransfe
 	}
 
 	// TODO store transfer msg or delete
-	// _ = msgMakeTransfer
+	_ = msgMakeTransfer
 
-	k.Keeper.CollectWager(ctx, &msgMakeTransfer)
+	// k.Keeper.CollectWager(ctx, &msgMakeTransfer)
+
+	bid := sdk.NewCoins(sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(int64(msg.Amount))))
+	address, _ := sdk.AccAddressFromBech32(msg.Creator)
+
+	k.bank.SendCoinsFromAccountToModule(ctx, address, types.ModuleName, bid)
 
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(sdk.EventTypeMessage,
