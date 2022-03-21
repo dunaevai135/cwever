@@ -37,6 +37,8 @@ func (k msgServer) MakeTransfer(goCtx context.Context, msg *types.MsgMakeTransfe
 	bid := sdk.NewCoins(sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(int64(msg.Amount))))
 	address, _ := sdk.AccAddressFromBech32(msg.Creator)
 
+	ctx.GasMeter().ConsumeGas(types.CreateTransactionGas, "Create transaction")
+
 	k.bank.SendCoinsFromAccountToModule(ctx, address, types.ModuleName, bid)
 
 	ctx.EventManager().EmitEvent(
